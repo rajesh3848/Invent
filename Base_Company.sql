@@ -1,0 +1,263 @@
+CREATE TABLE `Base_Company` (	
+	`CompanyId` INT(4) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT,
+	`Name` VARCHAR(40) NOT NULL,
+	`Phone` VARCHAR(20) NOT NULL,
+	`Fax` VARCHAR(20) NULL DEFAULT NULL,
+	`Email`	VARCHAR(40) NOT NULL,
+	`Website` VARCHAR(80) NULL DEFAULT NULL,
+	`Address1` VARCHAR(80) NOT NULL,
+	`Address2` VARCHAR(80) NULL DEFAULT NULL,
+	`City` VARCHAR(40) NOT NULL,
+	`State` VARCHAR(40) NULL DEFAULT NULL,
+	`CountryCode` VARCHAR(4) NOT NULL,
+	`PostalCode` VARCHAR(10) NULL DEFAULT NULL,
+	`Timestamp` TIMESTAMP,
+	`TaxNumber` VARCHAR(40) NULL DEFAULT NULL,
+	PRIMARY KEY (`CompanyId`)
+)
+
+
+CREATE TABLE `Base_Customer` (
+	`CustomerId` INT(4) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT,
+	`Version` INT(4) NULL DEFAULT NULL,
+	`Name` VARCHAR(40) NOT NULL,
+	`VendorPermitNumber` VARCHAR(40),
+	`Remarks` VARCHAR(80) NULL DEFAULT NULL,
+	`DefaultPricingSchemeId` INT(4) NULL DEFAULT NULL,
+	`Discount` DECIMAL(20,2)  NULL DEFAULT NULL,
+	`DefaultPaymentTermsId` INT(4) NULL DEFAULT NULL,
+	`DefaultOrderTaxCodeId`	INT(4) NULL DEFAULT NULL,
+	`DefaultCarrier`	VARCHAR(40) NULL DEFAULT NULL,
+	`DefaultPaymentMethod`	VARCHAR(40) NULL DEFAULT NULL,
+	`ContactName`	VARCHAR(40) NULL DEFAULT NULL,
+	`Phone`	VARCHAR(40) NOT NULL,
+	`Fax`	VARCHAR(40) NULL DEFAULT NULL,
+	`Email`	VARCHAR(40) NULL DEFAULT NULL,
+	`Address1`	VARCHAR(80) NOT NULL,
+	`Address2`	VARCHAR(80) NULL DEFAULT NULL,
+	`City`	VARCHAR(40) NOT NULL,
+	`State`	VARCHAR(40) NULL DEFAULT NULL,
+	`CountryCode`	VARCHAR(4) NOT NULL,
+	`PostalCode`	VARCHAR(10) NULL DEFAULT NULL,
+	`AddressRemarks`	VARCHAR(40) NULL DEFAULT NULL,
+	`AddressType`	INT(4) NULL DEFAULT NULL,
+	`UsingBillingAddress`	INT(2) NULL DEFAULT NULL,
+	`BillingAddress1`	VARCHAR(80) NULL DEFAULT NULL,
+	`BillingAddress2`	VARCHAR(80) NULL DEFAULT NULL,
+	`BillingCity`	VARCHAR(40) NULL DEFAULT NULL,
+	`BillingState`	VARCHAR(40) NULL DEFAULT NULL,
+	`BillingCountryCode`	VARCHAR(4) NULL DEFAULT NULL,
+	`BillingPostalCode`	VARCHAR(10) NULL DEFAULT NULL,
+	`BillingAddressRemarks`	VARCHAR(80) NULL DEFAULT NULL,
+	`BillingAddressType`	INT(4) NULL DEFAULT NULL,
+	`UsingShippingAddress`	INT(2) NULL DEFAULT NULL,
+	`ShippingAddress1`	VARCHAR(80) NULL DEFAULT NULL,
+	`ShippingAddress2`	VARCHAR(80) NULL DEFAULT NULL,
+	`ShippingCity`	VARCHAR(40) NULL DEFAULT NULL,
+	`ShippingState`	VARCHAR(40) NULL DEFAULT NULL,
+	`ShippingCountry`	VARCHAR(4) NULL DEFAULT NULL,
+	`ShippingPostalCode`	VARCHAR(10) NULL DEFAULT NULL,
+	`ShippingAddressRemarks`	VARCHAR(80) NULL DEFAULT NULL,
+	`ShippingAddressType`	INT(4) NULL DEFAULT NULL,
+	`LastModUserId`	INT(4) NULL DEFAULT NULL,
+	`LastModDttm`	TIMESTAMP,	
+	`Timestamp`	TIMESTAMP,	
+	`IsActive`	INT(2) NULL DEFAULT NULL,
+	`Website`	VARCHAR(80) NULL DEFAULT NULL,
+	`DefaultSalesRep`	VARCHAR(40) NULL DEFAULT NULL,
+	`DefaultLocationId`	INT(4) NULL DEFAULT NULL,
+	PRIMARY KEY (`CustomerId`)
+)
+
+
+CREATE TABLE `Base_CustomerAddress` (
+	`CustomerAddressId`	INT(4) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT,
+	`CustomerId`	INT(4) NOT NULL,
+	`Version`	INT(4) NULL DEFAULT NULL,
+	`Name`	VARCHAR(40) NOT NULL,
+	`Address1`	VARCHAR(80) NOT NULL,
+	`Address2`	VARCHAR(40) NULL DEFAULT NULL,
+	`City`	VARCHAR(40) NOT NULL,
+	`State`	VARCHAR(40) NULL DEFAULT NULL,
+	`CountryCode`	VARCHAR(10) NOT NULL,
+	`PostalCode`	VARCHAR(10) NULL DEFAULT NULL,
+	`AddressRemarks`	VARCHAR(80) NOT NULL,
+	`AddressType`	INT(4) NULL DEFAULT NULL,
+	`LastModUserId`	INT(4) NULL DEFAULT NULL,
+	`LastModDttm`	TIMESTAMP,	
+	`Timestamp`	TIMESTAMP,
+	PRIMARY KEY (`CustomerAddressId`)
+)
+
+
+CREATE TABLE `Base_CustomerBalance` (
+	`CustomerId`	INT(4) NOT NULL,
+	`Balance`	DECIMAL(20,2) NOT NULL,
+	`Timestamp`	TIMESTAMP,
+	`SalesOrderId`	INT(4) NOT NULL
+)
+
+
+CREATE TABLE `Base_CustomerBalanceTotal` (
+	`CustomerId`	INT(4) NOT NULL,
+	`Balance`	DECIMAL(20,2) NOT NULL,
+	`Timestamp`	TIMESTAMP
+)
+
+
+CREATE TABLE `Base_Inventory` (
+	LocationId	INT(4) NOT NULL,
+	Sublocation	VARCHAR(40) NULL DEFAULT NULL,
+	Quantity	DECIMAL(20,2) NOT NULL,
+	Timestamp	TIMESTAMP,	
+	ProdId	INT	(4) NULL DEFAULT NULL
+)
+
+
+CREATE TABLE `Base_InventoryCost` (
+	`InventoryCount` DECIMAL(20,2) NOT NULL,
+	`AverageCost`	DECIMAL(20,2) NOT NULL,
+	`Timestamp`	TIMESTAMP,	
+	`ProdId`	INT(4) NOT NULL,
+	`LastPurchaseCost`	DECIMAL(20,2) NULL DEFAULT NULL,
+	`StandardCost`	DECIMAL(20,2) NULL DEFAULT NULL,
+	`CostingMethod`	INT(4) NULL DEFAULT NULL
+)
+
+
+CREATE TABLE `Base_InventoryCostLogDetail` (
+	`InventoryCostLogDetailId`	INT(4) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT,
+	`Quantity`	DECIMAL(20,2) NOT NULL,
+	`QuantityBefore`	DECIMAL(20,2)  NULL DEFAULT NULL,
+	`QuantityAfter`	DECIMAL(20,2)  NULL DEFAULT NULL,
+	`AverageCostBefore`	DECIMAL(20,2)  NULL DEFAULT NULL,
+	`AverageCostAfter`	DECIMAL(20,2)  NULL DEFAULT NULL,
+	`CreatedUserId`	INT(4) NOT NULL,
+	`CreatedDttm`	TIMESTAMP,	
+	`Timestamp`	TIMESTAMP,	
+	`ProdId`	INT(4) NOT NULL,
+	`LastPurchaseCostBefore`	DECIMAL(20,2)  NULL DEFAULT NULL,
+	`LastPurchaseCostAfter`	DECIMAL(20,2)  NULL DEFAULT NULL,
+	`StandardCostBefore`	DECIMAL(20,2)  NULL DEFAULT NULL,
+	`StandardCostAfter`	DECIMAL(20,2)  NULL DEFAULT NULL,
+	`CostingMethodBefore`	INT(4)  NULL DEFAULT NULL,
+	`CostingMethodAfter`	INT(4)  NULL DEFAULT NULL,
+	`CurrencyIdBefore`	INT(4)  NULL DEFAULT NULL,
+	`CurrencyIdAfter`	INT(4)  NULL DEFAULT NULL,
+	PRIMARY KEY (`InventoryCostLogDetailId`)
+)
+
+
+CREATE TABLE `BASE_InventoryQuantityTotal` (
+	`QuantityOnHand`	DECIMAL(20,2)  NULL DEFAULT NULL,
+	`QuantitySold`	DECIMAL(20,2)  NULL DEFAULT NULL,
+	`QuantityOnOrder`	DECIMAL(20,2)  NULL DEFAULT NULL,
+	`ProdId`	INT(4)  NULL DEFAULT NULL,
+	`Timestamp`	TIMESTAMP
+)
+
+
+CREATE TABLE `BASE_ItemPrice` (
+	`ItemPriceId`	INT(4) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT,
+	`Version`	INT(4)  NULL DEFAULT NULL,
+	`PricingSchemeId`	INT(4)  NULL DEFAULT NULL,
+	`UnitPrice`	DECIMAL(20,2) NULL DEFAULT NULL,
+	`LastModUserId`	INT(4) NULL DEFAULT NULL,
+	`LastModDttm`	TIMESTAMP,	
+	`Timestamp`	TIMESTAMP,	
+	`ProdId`	INT(4) NULL DEFAULT NULL,
+	PRIMARY KEY (`ItemPriceId`)
+)
+
+
+CREATE TABLE `BASE_ItemTaxCode` (
+	`ItemTaxCodeId`	INT(4)  UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT,
+	`Tax1Applicable`	INT(2) NULL DEFAULT NULL,
+	`Tax2Applicable`	INT(2) NULL DEFAULT NULL,
+	`Name`	VARCHAR(40) NULL DEFAULT NULL,
+	`Code`	VARCHAR(20) NULL DEFAULT NULL,
+	`LastModUserId`	INT(4) NULL DEFAULT NULL,
+	`LastModDttm`	TIMESTAMP,	
+	`Timestamp`	TIMESTAMP,	
+	`IsActive`	INT(2) NULL DEFAULT NULL,
+	PRIMARY KEY (`ItemTaxCodeId`)
+)
+
+
+CREATE TABLE `BASE_Location` (
+	`LocationId`	INT(4) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT,
+	`Name`	VARCHAR(40) NULL DEFAULT NULL,
+	`LastModUserId`	INT(4) NULL DEFAULT NULL,
+	`LastModDttm`	TIMESTAMP,	
+	`Timestamp`	TIMESTAMP,	
+	`IsActive`	INT(2) NULL DEFAULT NULL,
+	`IsSpecialRecord`	INT(2) NULL DEFAULT NULL,
+	PRIMARY KEY (`LocationId`)
+)
+
+
+CREATE TABLE `BASE_OrderTaxCode` (
+	`OrderTaxCodeId`	INT(4) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT,
+	`Name`	VARCHAR(40) NULL DEFAULT NULL,
+	`Tax1Rate`	DECIMAL(20,2) NULL DEFAULT NULL,
+	`Tax2Rate`	DECIMAL(20,2) NULL DEFAULT NULL,
+	`Tax1Name`	VARCHAR(40) NULL DEFAULT NULL,
+	`Tax2Name`	VARCHAR(40) NULL DEFAULT NULL,
+	`CalculateTax2OnTax1`	INT(2) NULL DEFAULT NULL,
+	`LastModUserId`	INT(4) NULL DEFAULT NULL,
+	`LastModDttm`	TIMESTAMP,	
+	`Timestamp`	TIMESTAMP,	
+	`IsActive`	INT(2) NULL DEFAULT NULL,
+	`TaxOnShipping`	INT(2) NULL DEFAULT NULL,
+	PRIMARY KEY (`OrderTaxCodeId`)
+)
+
+
+CREATE TABLE `BASE_PaymentTerms` (
+	`PaymentTermsId`	INT(4) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT,
+	`Name`	VARCHAR(40) NULL DEFAULT NULL,
+	`DaysDue`	INT(4) NULL DEFAULT NULL,
+	`Timestamp`	TIMESTAMP,	
+	`IsActive`	INT(2) NULL DEFAULT NULL,
+	PRIMARY KEY (`PaymentTermsId`)
+)
+
+
+CREATE TABLE `BASE_PricingScheme` (
+	`PricingSchemeId`	INT	(4) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT,
+	`Name`	VARCHAR	(40) NULL DEFAULT NULL,
+	`LastModUserId`	INT	(4) NULL DEFAULT NULL,
+	`LastModDttm`	TIMESTAMP,	
+	`Timestamp`	TIMESTAMP,	
+	`CurrencyId`	INT	(4) NULL DEFAULT NULL,
+	`IsActive`	INT	(2) NULL DEFAULT NULL,
+	PRIMARY KEY (`PricingSchemeId`)
+)
+
+
+CREATE TABLE `BASE_Product` (
+	`ProdId`	INT	(4)  UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT,
+	`ItemType`	INT	(4),
+	`Name`	VARCHAR	(40),
+	`Description`	VARCHAR	(40),
+	`Remarks`	VARCHAR	(40),
+	`BarCode`	VARCHAR	(40),
+	`DefaultLocationId`	INT	(4),
+	`DefaultSublocation`	VARCHAR	(40),
+	`ReorderPoint`	DECIMAL	(20,2),
+	`ReorderQuantity`	DECIMAL	(20,2),
+	`MasterPackQty`	DECIMAL	(20,2),
+	`InnerPackQty`	DECIMAL	(20,2),
+	`ItemTaxCodeId`	INT	(4),
+	`LastVendorId`	INT	(4),
+	`IsSellable`	INT	(2),
+	`IsPurchaseable`	INT	(2),
+	`DateUpdated`	TIMESTAMP,
+	`LastModUserId`	INT	(2),
+	`LastModDttm`	TIMESTAMP,
+	`Timestamp`	TIMESTAMP,
+	`IsActive`	INT	(2),
+	PRIMARY KEY (`ProdId`)
+)
+	
+
